@@ -1,6 +1,8 @@
 package com.example.demo.services.impl;
 
+import com.example.demo.dto.ProductDto;
 import com.example.demo.exception.ProductNotFoundException;
+import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.services.ProductService;
@@ -14,8 +16,14 @@ import java.util.List;
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
     private ProductRepository productRepository;
+    private ProductMapper productMapper;
+
+    @Autowired
+    public ProductServiceImpl(ProductRepository repository, ProductMapper mapper) {
+        this.productRepository = repository;
+        this.productMapper = mapper;
+    }
 
     @Override
     public Product saveProduct(Product product){

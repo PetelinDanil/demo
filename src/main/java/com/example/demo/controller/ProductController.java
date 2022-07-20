@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.dto.ProductDto;
 import com.example.demo.exception.ProductNotFoundException;
+import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.services.ProductService;
@@ -11,7 +13,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -23,9 +27,12 @@ public class ProductController {
     private ApplicationContext applicationContext;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ProductMapper productMapper;
 
     // использование конструктора вместо анотации Autowired
     private ProductRepository productRepository;
+
     public ProductController(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
@@ -51,13 +58,15 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    private List<Product> getAll() {
-        return productService.getAllProducts();
-    }
+    private List<ProductDto> getAll() {
+        List<Product> products = productService.getAllProducts();
 
-    @PostMapping("/product")
-    private Product newProduct(@RequestBody Product newProduct) {
-        return productService.saveProduct(newProduct);
+        List<ProductDto> productsDto = products.stream().map(p -> {
+            System.out.println(productMapper.toDto(p));
+            return productMapper.toDto(p);
+        }).collect(Collectors.toList());
+
+        return productsDto;
     }
 
     @GetMapping("/product/{id}")
@@ -65,13 +74,18 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
+    @PostMapping("/product")
+    private Product newProduct(@RequestBody Product newProduct) {
+        return productService.saveProduct(newProduct);
+    }
+
     @PutMapping("/product/{id}")
-    private Product editProduct(@RequestBody Product newProduct, @PathVariable Long id){
+    private Product editProduct(@RequestBody Product newProduct, @PathVariable Long id) {
         return productService.editProduct(newProduct, id);
     }
 
     @GetMapping("/product")
-    private Product getProductByName(@RequestParam String name){
+    private Product getProductByName(@RequestParam String name) {
         return productService.getProductByName(name);
     }
 
