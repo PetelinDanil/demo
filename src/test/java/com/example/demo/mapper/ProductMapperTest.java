@@ -18,31 +18,31 @@ class ProductMapperTest {
 
     @Test
     void toEntity() {
-        ProductDto productDto = new ProductDto(1l, "prod1", "desc1", 5, 101.5f);
+        assertNotNull(productMapper);
+
+        ProductDto productDto = new ProductDto(1l, "prod2", "desc1", 5, 101.5f);
         Product product = productMapper.toEntity(productDto);
-        assertEquals(1, product.getId());
-        assertEquals("prod1", product.getName());
-        assertEquals("desc1", product.getDescription());
-        assertEquals(5, product.getRemain());
-        assertEquals(101.5f, product.getPrice());
+        assertEquals(productDto.getId(), product.getId());
+        assertEquals(productDto.getName(), product.getName());
+        assertEquals(productDto.getDescription(), product.getDescription());
+        assertEquals(productDto.getRemain(), product.getRemain());
+        assertEquals(productDto.getPrice(), product.getPrice());
 
 //        String[] allBeanNames = applicationContext.getBeanDefinitionNames();
 //        for (String beanName : allBeanNames) {
 //
 //            System.out.println(" --- bean: " + beanName);
 //        }
-        System.out.println(productMapper);
-        assertNotNull(productMapper);
     }
 
     @Test
     void toDto() {
         Product product = new Product(2l, "prod2", "desc2", 3, 75.0f);
         ProductDto productDto = productMapper.toDto(product);
-        assertEquals(2, productDto.getId());
-        assertEquals("prod2", productDto.getName());
-        assertEquals("desc2", productDto.getDescription());
-        assertEquals(3, productDto.getRemain());
-        assertEquals(75.0f, productDto.getPrice());
+        assertEquals(product.getId(), productDto.getId());
+        assertEquals(product.getName(), productDto.getName());
+        assertEquals(product.getDescription(), productDto.getDescription());
+        assertEquals(product.getRemain(), productDto.getRemain());
+        assertEquals(product.getPrice(), productDto.getPrice());
     }
 }
