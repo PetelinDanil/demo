@@ -11,8 +11,13 @@ import java.util.Objects;
 @Component
 public class ProductMapper {
 
-    @Autowired
+
     private ModelMapper mapper;
+
+    @Autowired
+    public ProductMapper(ModelMapper mapper) {
+        this.mapper = mapper;
+    }
 
     public Product toEntity(ProductDto dto){
         return Objects.isNull(dto) ? null : mapper.map(dto, Product.class);
