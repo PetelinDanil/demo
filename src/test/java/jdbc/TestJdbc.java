@@ -38,6 +38,7 @@ public class TestJdbc {
                 product = new Product(rs.getLong("id"), rs.getString("description"),
                         rs.getString("name"),rs.getInt("remain"), rs.getFloat("price"));
                 productList.add(product);
+
             }
             System.out.println(productList);
         } catch (SQLException | ClassNotFoundException e) {
@@ -57,7 +58,6 @@ public class TestJdbc {
     static final String DB_URL_ORACLE = "jdbc:oracle:thin:@192.168.0.55:1521:A";
     static final String USER_ORACLE = "hr";
     static final String PASS_ORACLE = "hr";
-
 
     @Test
     void testJdbc() {
@@ -90,5 +90,7 @@ public class TestJdbc {
         }
 
     }
+
+
 
 }
