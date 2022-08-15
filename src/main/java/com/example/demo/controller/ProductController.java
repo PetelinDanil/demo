@@ -44,12 +44,6 @@ public class ProductController {
         for (String beanName : allBeanNames) {
             log.info(" --- bean '{}'", beanName);
         }
-        Product product = Product.builder().name("product1").description("desc1").remain(10).price(100f).build();
-        productRepository.save(product);
-        product = Product.builder().name("product2").description("desc1").remain(15).price(150f).build();
-        productRepository.save(product);
-        product = Product.builder().name("product3").description("desc1").remain(20).price(200f).build();
-        productRepository.save(product);
     }
 
     @GetMapping("/hello")

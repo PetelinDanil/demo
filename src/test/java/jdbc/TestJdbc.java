@@ -1,8 +1,11 @@
 package jdbc;
 
+import com.example.demo.model.Product;
 import org.junit.jupiter.api.Test;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestJdbc {
 
@@ -24,13 +27,19 @@ public class TestJdbc {
 
             stmt = connect.createStatement();
             rs = stmt.executeQuery("select * from products");
+            List<Product> productList = new ArrayList<>();
+            Product product;
             while(rs.next()){
                 System.out.println("Product id="+rs.getLong("id")
                         +", Description="+rs.getString(2)
                         +", Name="+rs.getString("name")
                         +", Price="+rs.getFloat("price")
                         +", Remain="+rs.getInt("remain"));
+                product = new Product(rs.getLong("id"), rs.getString("description"),
+                        rs.getString("name"),rs.getInt("remain"), rs.getFloat("price"));
+                productList.add(product);
             }
+            System.out.println(productList);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }finally{
