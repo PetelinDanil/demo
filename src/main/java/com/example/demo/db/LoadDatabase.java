@@ -1,7 +1,9 @@
 package com.example.demo.db;
 
 import com.example.demo.mapper.ProductRowMapper;
+import com.example.demo.model.Category;
 import com.example.demo.model.Product;
+import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,9 @@ public class LoadDatabase {
     private ProductRepository productRepository;
 
     @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
     private DataSource dataSource;
 
     @Autowired
@@ -34,12 +39,16 @@ public class LoadDatabase {
 
     @Bean
     CommandLineRunner initDatabase(ProductRepository repository) {
-        Product product = Product.builder().name("product1").description("desc1").remain(10).price(100f).build();
+        Category category = Category.builder().name("category1").description("descCategory1").build();
+        categoryRepository.save(category);
+
+        Product product = Product.builder().name("product1").description("desc1").remain(10).category(category).price(100f).build();
         productRepository.save(product);
-        product = Product.builder().name("product2").description("desc1").remain(15).price(150f).build();
+        product = Product.builder().name("product2").description("desc2").remain(15).category(category).price(150f).build();
         productRepository.save(product);
-        product = Product.builder().name("product3").description("desc1").remain(20).price(200f).build();
+        product = Product.builder().name("product3").description("desc3").remain(20).category(category).price(200f).build();
         productRepository.save(product);
+
 
         System.out.println("--- Testing rowMapper");
         Connection connect = null;
@@ -80,7 +89,7 @@ public class LoadDatabase {
         }
 
         return args -> {
-            log.info("Preloading " + repository.findAll());
+//            log.info("Preloading " + repository.findAll());
         };
     }
 }
