@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 @Data
 @Builder(toBuilder = false)
 @NoArgsConstructor
@@ -33,8 +33,8 @@ public class Role {
     private String description;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "person_role",
+    @JoinTable(name = "users_roles",
             joinColumns = { @JoinColumn(name = "role_id") },
-            inverseJoinColumns = { @JoinColumn(name = "person_id") })
-    private Set<Person> personSet;
+            inverseJoinColumns = { @JoinColumn(name = "user_id") })
+    private Set<User> userSet;
 }

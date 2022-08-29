@@ -2,11 +2,11 @@ package com.example.demo.db;
 
 import com.example.demo.mapper.ProductRowMapper;
 import com.example.demo.model.Category;
-import com.example.demo.model.Person;
+import com.example.demo.model.User;
 import com.example.demo.model.Product;
 import com.example.demo.model.Role;
 import com.example.demo.repository.CategoryRepository;
-import com.example.demo.repository.PersonRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.repository.RoleRepository;
 import org.slf4j.Logger;
@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +40,7 @@ public class LoadDatabase {
     private RoleRepository roleRepository;
 
     @Autowired
-    private PersonRepository personRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private DataSource dataSource;
@@ -69,15 +68,15 @@ public class LoadDatabase {
         rolesUser.add(roleUser);
 
 
-        Person person = Person.builder().email("123@gmail.com").firstName("").lastName("").login("user1").password("123").phoneNumber("00000001")
+        User user = User.builder().email("123@gmail.com").firstName("").lastName("").login("user1").password("123").phoneNumber("00000001")
                 .roleSet(rolesAdmin).build();
-        personRepository.save(person);
-        person = Person.builder().email("456@gmail.com").firstName("").lastName("").login("user2").password("123").phoneNumber("00000002")
+        userRepository.save(user);
+        user = User.builder().email("456@gmail.com").firstName("").lastName("").login("user2").password("123").phoneNumber("00000002")
                 .roleSet(rolesUser).build();
-        personRepository.save(person);
-        person = Person.builder().email("789@gmail.com").firstName("").lastName("").login("user3").password("123").phoneNumber("00000003")
+        userRepository.save(user);
+        user = User.builder().email("789@gmail.com").firstName("").lastName("").login("user3").password("123").phoneNumber("00000003")
                 .roleSet(rolesUser).build();
-        personRepository.save(person);
+        userRepository.save(user);
 
         Product product = Product.builder().name("product1").description("desc1").remain(10).category(category).price(100f).build();
         productRepository.save(product);

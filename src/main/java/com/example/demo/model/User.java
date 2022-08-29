@@ -15,12 +15,12 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@Table(name = "person")
+@Table(name = "users")
 @Data
 @Builder(toBuilder = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Person {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,8 +48,8 @@ public class Person {
     private String email;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "person_role",
-            joinColumns = { @JoinColumn(name = "person_id") },
+    @JoinTable(name = "users_roles",
+            joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private Set<Role> roleSet;
 }
