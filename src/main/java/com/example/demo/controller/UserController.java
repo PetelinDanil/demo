@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping(value = "/api")
-public class PersonController {
+public class UserController {
 
 
 }
