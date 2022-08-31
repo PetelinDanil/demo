@@ -77,6 +77,9 @@ public class LoadDatabase {
         user = User.builder().email("789@gmail.com").firstName("").lastName("").login("user3").password("123").phoneNumber("00000003")
                 .roleSet(rolesUser).build();
         userRepository.save(user);
+        user = User.builder().email("101112@gmail.com").firstName("").lastName("").login("user4").password("123").phoneNumber("00000004")
+                .build();
+        userRepository.save(user);
 
         Product product = Product.builder().name("product1").description("desc1").remain(10).category(category).price(100f).build();
         productRepository.save(product);

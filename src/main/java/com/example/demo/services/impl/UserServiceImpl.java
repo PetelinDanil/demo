@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User saveUser(User product){
+        return this.userRepository.save(product);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public User getUserById(Long id){
         return this.userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
@@ -59,7 +64,7 @@ public class UserServiceImpl implements UserService {
             this.userRepository.deleteById(id);
             return "product removed !! " + id;
         }
-        throw new ProductNotFoundException(id);
+        throw new UserNotFoundException(id);
     }
 
     @Override
