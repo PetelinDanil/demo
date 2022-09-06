@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,6 +42,7 @@ public class Product implements Serializable {
     private Float price;
 
     @ManyToOne
+//    @JsonManagedReference
     private Category category;
 
 }

@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,8 +38,9 @@ public class Category implements Serializable {
     @Pattern(regexp = "^[A-Za-z0-9.:\\- ]+$")
     private String description;
 
-//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonBackReference
+    @JsonIgnore
     private Set<Product> products;
 
 }
